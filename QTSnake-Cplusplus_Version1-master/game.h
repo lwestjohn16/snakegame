@@ -7,6 +7,8 @@
 #include <QKeyEvent>
 #include <QMessageBox>
 #include <QPushButton>
+#include <QMediaPlayer>
+#include <QMediaPlaylist>
 
 class Game : public QWidget
 {
@@ -43,6 +45,7 @@ class Game : public QWidget
     QPushButton *easy = setDifficulty.addButton(tr("Easy"), QMessageBox::YesRole);
     QPushButton *medium = setDifficulty.addButton(tr("Medium"), QMessageBox::AcceptRole);
     QPushButton *hard = setDifficulty.addButton(tr("Hard"), QMessageBox::ActionRole);
+    QMediaPlayer *music;
 };
 
 #endif

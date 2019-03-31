@@ -19,6 +19,11 @@ Game::Game(QWidget *parent) : QWidget(parent) {
     food = new Food(2*40+27, 2*10+47);
     snake = new Snake(230, 355, 5);
     setDifficulty.exec();
+    music = new QMediaPlayer();
+    QMediaPlaylist *playlist = new QMediaPlaylist();
+    playlist->addMedia(QUrl("qrc:/sound/bigCarTheftJasonShaw.mp3"));
+    playlist->setPlaybackMode(QMediaPlaylist::Loop);
+    music->setPlaylist(playlist);
     /*QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this, "Menu", "What Level do you want",QMessageBox::Save | QMessageBox::Ok | QMessageBox::Abort);
 
@@ -161,6 +166,18 @@ void Game::keyPressEvent(QKeyEvent *event) {
     case Qt::Key_Down:
           snake->dir = Snake::DOWN;
         break;
+    case Qt::Key_A:
+         snake->dir = Snake::LEFT;
+       break;
+    case Qt::Key_D:
+          snake->dir = Snake::RIGHT;
+        break;
+    case Qt::Key_W:
+          snake->dir = Snake::UP;
+        break;
+    case Qt::Key_S:
+          snake->dir = Snake::DOWN;
+        break;
     case Qt::Key_Enter:
           pauseGame();
         break;
@@ -185,6 +202,7 @@ void Game::startGame() {
         newhigh = false;
         gameStarted = true;
         timerId = startTimer(10);
+        music->play();
     }
 }
 
@@ -200,6 +218,7 @@ void Game::pauseGame() {
 
 void Game::stopGame() {
     delete snake;
+    music->pause();
     killTimer(timerId);
     gameOver = true;
     if (score > highscore) {
