@@ -18,7 +18,8 @@ Game::Game(QWidget *parent) : QWidget(parent) {
     gameStarted = false;
     food = new Food(2*40+27, 2*10+47);
     snake = new Snake(230, 355, 5);
-    QMessageBox::StandardButton reply;
+    setDifficulty.exec();
+    /*QMessageBox::StandardButton reply;
     reply = QMessageBox::question(this, "Menu", "What Level do you want",QMessageBox::Save | QMessageBox::Ok | QMessageBox::Abort);
 
     //QMessageBox::setButtonText(QMessageBox::Save, trUtf8("Easy"));
@@ -29,6 +30,13 @@ Game::Game(QWidget *parent) : QWidget(parent) {
     if (reply == QMessageBox::Save)
     {num = 20;}
     if(reply == QMessageBox::Abort)
+    { num=4;}*/
+    if (setDifficulty.clickedButton() == easy) {
+        num = 100;
+    }
+    if (setDifficulty.clickedButton() == medium)
+    {num = 20;}
+    if(setDifficulty.clickedButton() == hard)
     { num=4;}
 }
 
@@ -208,7 +216,20 @@ void Game::checkCollision() {
 
     if ((snake->head().rect).intersects(food->getRect())) {
         food->setDestroyed(true);
-        food = new Food((1+(rand()%6))*40+27, (1+(rand()%30))*10+47);
+        int newx = rand()%this->width();
+        int newy = rand()%this->height();
+        if(newx == this->width() - 1 && newy == this->height() - 1){
+            food = new Food(newx-20, newy-20);
+        }
+        else if(newx >= this->width() - 20){
+            food = new Food(newx-20, newy);
+        }
+        else if(newy >= this->height() - 20){
+            food = new Food(newx, newy-20);
+        }
+        else{
+            food = new Food(newx, newy);
+        }
         snake->growBy(1);
         score += 1;
     }
@@ -217,4 +238,8 @@ void Game::checkCollision() {
     for (iter = ++snake->segments.begin(); iter != snake->segments.end(); ++iter)
         if (iter->x == snake->head().x && iter->y == snake->head().y)
             stopGame();
+}
+
+void Game::setNum(int n){
+    num = n;
 }

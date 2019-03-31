@@ -5,6 +5,8 @@
 #include "snake.h"
 #include <QWidget>
 #include <QKeyEvent>
+#include <QMessageBox>
+#include <QPushButton>
 
 class Game : public QWidget
 {
@@ -13,6 +15,7 @@ class Game : public QWidget
   public:
     Game(QWidget *parent = 0);
     ~Game();
+    void setNum(int n);
 
   protected:
     void paintEvent(QPaintEvent *event);
@@ -36,6 +39,10 @@ class Game : public QWidget
     bool paused;
     bool newhigh;
     int num;
+    QMessageBox setDifficulty;
+    QPushButton *easy = setDifficulty.addButton(tr("Easy"), QMessageBox::YesRole);
+    QPushButton *medium = setDifficulty.addButton(tr("Medium"), QMessageBox::AcceptRole);
+    QPushButton *hard = setDifficulty.addButton(tr("Hard"), QMessageBox::ActionRole);
 };
 
 #endif
