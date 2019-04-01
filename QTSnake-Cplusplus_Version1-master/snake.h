@@ -29,7 +29,7 @@ class Snake
         QRect rect;
         int x, y;
     };
-    Direction dir;
+    Direction dir = UP;
     typedef std::list<Segment> SegmentList;
     QImage image;
     SegmentList segments;
