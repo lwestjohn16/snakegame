@@ -36,6 +36,7 @@ class Snake
     void move();
     void putSegmentAt(QImage image, QRect rect, int x, int y);
     void growBy(unsigned int numSegments);
+    bool checkOverlap(int x, int y);
     const Segment & head() const {
         return segments.front();
     }

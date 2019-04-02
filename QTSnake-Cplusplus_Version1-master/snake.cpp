@@ -1,5 +1,7 @@
 #include "snake.h"
 #include <iostream>
+#include <iterator>
+#include <list>
 
 Snake::Snake(int x, int y, int growToSize): numQueuedSegments(growToSize) {
     image.load(":/images/snake1.png");
@@ -32,21 +34,28 @@ void Snake::move() {
     int y = head().y;
     switch (dir) {
         case Snake::DOWN:
-            y += 7;
+            y += 10;
         break;
         case Snake::UP:
-            y -= 7;
+            y -= 10;
         break;
         case Snake::LEFT:
-            x -= 7;
+            x -= 10;
         break;
         case Snake::RIGHT:
-            x += 7;
+            x += 10;
         break;
     }
     rect.moveTo(x, y);
     putSegmentAt(image, rect, x, y);
 }
 
-
+/*bool Snake::checkOverlap(int x, int y){
+    for(SegmentIterator = segments.begin(); SegmentIterator != segments.end(); SegmentIterator++){
+        if(*SegmentIterator.rect.contains(x,y)){
+            return true;
+        }
+    }
+    return false;
+}*/
 

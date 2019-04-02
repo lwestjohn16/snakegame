@@ -16,8 +16,8 @@ Game::Game(QWidget *parent) : QWidget(parent) {
     gameOver = false;
     paused = false;
     gameStarted = false;
-    food = new Food(2*40+27, 2*10+47);
-    snake = new Snake(230, 355, 5);
+    food = new Food((rand()%70)*10, (rand()%50)*10);
+    snake = new Snake(230, 350, 5);
     setDifficulty.exec();
     music = new QMediaPlayer();
     QMediaPlaylist *playlist = new QMediaPlaylist();
@@ -40,9 +40,9 @@ Game::Game(QWidget *parent) : QWidget(parent) {
         num = 100;
     }
     if (setDifficulty.clickedButton() == medium)
-    {num = 20;}
+    {num = 30;}
     if(setDifficulty.clickedButton() == hard)
-    { num=4;}
+    { num=10;}
 }
 
 Game::~Game() {
@@ -218,7 +218,7 @@ void Game::pauseGame() {
 
 void Game::stopGame() {
     delete snake;
-    music->pause();
+    music->stop();
     killTimer(timerId);
     gameOver = true;
     if (score > highscore) {
@@ -235,8 +235,12 @@ void Game::checkCollision() {
 
     if ((snake->head().rect).intersects(food->getRect())) {
         food->setDestroyed(true);
-        int newx = rand()%this->width();
-        int newy = rand()%this->height();
+        int newx = (rand()%70)*10;
+        int newy = (rand()%50)*10;
+        /*while(snake->checkOverlap(newx, newy)){
+            int newx = (rand()%70)*10;
+            int newy = (rand()%50)*10;
+        }*/
         if(newx == this->width() - 1 && newy == this->height() - 1){
             food = new Food(newx-20, newy-20);
         }
