@@ -12,6 +12,7 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 TARGET = Snake
 TEMPLATE = app
 
+RC_ICONS = icon.ico
 
 SOURCES += main.cpp\
     food.cpp \
