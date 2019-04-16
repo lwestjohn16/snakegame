@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/sound">
+        <file>alpineRidge.mp3</file>
+        <file>hauntedTowers.mp3</file>
+        <file>loftyCastle.mp3</file>
+    </qresource>
+</RCC>
